@@ -71,6 +71,4 @@
     (should (equal (member? a2 l3) nil))
 
     ;; Exercise 2.10
-    (should (equal (member-twice? 'a '(x a b c a)) t))
-
-    ))
+    (should (equal (member-twice? 'a '(x a b c a)) t))))
