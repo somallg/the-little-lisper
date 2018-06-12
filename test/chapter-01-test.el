@@ -39,6 +39,7 @@
 
 (ert-deftest chapter-01-test/atom2 ()
   (should (equal (atom? 'Harry) t))
+  (should (equal (atom? '()) nil))
   (should (equal (atom? '(Harry had a heap of apples)) nil))
   (should (equal (atom? (car '(Harry had a heap of apples))) t))
   (should (equal (atom? (cdr '(Harry had a heap of apples))) nil))

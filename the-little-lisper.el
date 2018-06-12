@@ -15,6 +15,7 @@
 
 ;;; Code:
 
+;; chapter-01
 ;; atom?
 (defun atom? (x)
   (not (listp x)))
@@ -27,12 +28,52 @@
 (defun eq? (a1 a2)
   (eq a1 a2))
 
+;; chapter-02
 ;; lat?
 (defun lat? (l)
   (cond
-   ((null l) t)
-   ((atom (car l)) (lat (cdr l)))
+   ((null? l) t)
+   ((atom (car l)) (lat? (cdr l)))
    (t nil)))
+
+;; member?
+(defun member? (a lat)
+  (cond
+   ((null? lat) nil)
+   (t (or
+       (eq? a (car lat))
+       (member? a (cdr lat))))))
+
+;; exercise 2.5 - nonlat?
+(defun nonlat? (lat)
+  (cond
+   ((null? lat) t)
+   ((atom? (car lat)) nil)
+   ((null? (car lat)) nil)
+   (t (nonlat? (cdr lat)))))
+
+;; exercise 2.6 - member-cake?
+(defun member-cake? (lat)
+  (cond
+   ((null? lat) nil)
+   ((eq? 'cake (car lat)) t)
+   (t (member-cake? (cdr lat)))))
+
+;; Exercise 2.7 - member2?
+(defun member2? (a lat)
+  (cond
+   ((null? lat) nil)
+   (t (or
+       (member2? a (cdr lat))
+       (eq? a (car lat))))))
+
+;; Exercise 2.10 member-twice?
+(defun member-twice? (a lat)
+  (cond
+   ((null? lat) nil)
+   ((and (eq? a (car lat))
+         (member? a (cdr lat)) t))
+   (t (member-twice? a (cdr lat)))))
 
 (provide 'the-little-lisper)
 
