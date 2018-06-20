@@ -2,9 +2,9 @@ language: generic
 sudo: required
 services:
   - docker
-before_script:
+before_install:
   - docker pull silex/emacs:26.1-dev
-  - docker run -d silex/emacs:26.1-dev
+  - docker run silex/emacs:26.1-dev /bin/sh
 install:
   # Install project dependencies
   - cask install
