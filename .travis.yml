@@ -9,9 +9,9 @@ before_install:
   - docker run -v "TRAVIS_BUILD_DIR":"$BUILD_DIR" silex/emacs:26.1-dev /bin/sh -c "cd $BUILD_DIR"
 install:
   # Install project dependencies
-  - docker run silex/emacs:26.1-dev /bin/sh -c "cask install"
+  - docker run silex/emacs:26.1-dev /bin/sh -c "cd $BUILD_DIR && cask install"
 script:
   # verify Emacs version
-  - docker run silex/emacs:26.1-dev /bin/sh -c "emacs --version"
+  - docker run silex/emacs:26.1-dev /bin/sh -c "cd $BUILD_DIR && emacs --version"
   # Run tests
-  - docker run silex/emacs:26.1-dev /bin/sh -c "cask exec ert-runner"
+  - docker run silex/emacs:26.1-dev /bin/sh -c "cd $BUILD_DIR && cask exec ert-runner"
