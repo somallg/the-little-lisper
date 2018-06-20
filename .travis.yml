@@ -7,7 +7,7 @@ env:
 before_install:
   - docker pull silex/emacs:26.1-dev
   # start docker container and set working directory to build folder
-  - docker run -v "TRAVIS_BUILD_DIR":"$BUILD_DIR" -w "$BUILD_DIR" silex/emacs:26.1-dev
+  - docker run -d -v "TRAVIS_BUILD_DIR":"$BUILD_DIR" -w "$BUILD_DIR" silex/emacs:26.1-dev
 install:
   # Install project dependencies
   - docker ps -a
