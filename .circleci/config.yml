@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: flycheck/emacs-cask/26.1
+      - image: silex/emacs/26.1-dev
     steps:
       - checkout
       - run:
