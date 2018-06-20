@@ -2,18 +2,9 @@ version: 2
 jobs:
   build:
     docker:
-      - image: jare/spacemacs-circleci:latest
+      - image: flycheck/emacs-cask/26.1
     steps:
       - checkout
-      - run:
-          name: Install Cask
-          command: apt-get -y python2.7 python-pip
-      - run:
-          name: Install Cask
-          command: curl -fsSL https://raw.githubusercontent.com/cask/cask/master/go | python
-      - run:
-          name: Setup Cask
-          command: export PATH="$HOME/.cask/bin:$PATH"
       - run:
           name: Install project dependencies 
           command: cask install
