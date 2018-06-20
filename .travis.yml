@@ -7,12 +7,17 @@ env:
 before_install:
   - docker pull silex/emacs:26.1-dev
   # start docker container and set working directory to build folder
-  - docker run -d -v "TRAVIS_BUILD_DIR":"$BUILD_DIR" -w "$BUILD_DIR" silex/emacs:26.1-dev
+  - docker run -v "TRAVIS_BUILD_DIR":"$BUILD_DIR" -w "$BUILD_DIR" silex/emacs:26.1-dev
 install:
   # Install project dependencies
   - docker ps -a
-  - docker run silex/emacs:26.1-dev /bin/sh -c "ls"
-  - docker run silex/emacs:26.1-dev /bin/sh -c "cask install"
+  - pwd
+  - ls -al
+  - docker run silex/emacs:26.1-dev /bin/sh -c "ls -al"
+  - docker run silex/emacs:26.1-dev /bin/sh -c "pwd"
+  - docker run silex/emacs:26.1-dev /bin/sh -c "cd $BUILD_DIR"
+  - docker run silex/emacs:26.1-dev /bin/sh -c "ls -al $BUILD_DIR"
+  - docker run silex/emacs:26.1-dev /bin/sh -c "pwd; cask install"
 script:
   # verify Emacs version
   - docker run silex/emacs:26.1-dev /bin/sh -c "emacs --version"
