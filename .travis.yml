@@ -6,9 +6,9 @@ before_install:
   - docker pull silex/emacs:26.1-dev
 install:
   # Install project dependencies
-  - docker run -it silex/emacs:26.1-dev /bin/sh - c "cask install"
+  - docker run silex/emacs:26.1-dev /bin/sh -c "cask install"
 script:
   # verify Emacs version
-  - docker run -it silex/emacs:26.1-dev /bin/sh - c "emacs --version"
+  - docker run silex/emacs:26.1-dev /bin/sh -c "emacs --version"
   # Run tests
-  - docker run -it silex/emacs:26.1-dev /bin/sh - c "cask exec ert-runner"
+  - docker run silex/emacs:26.1-dev /bin/sh -c "cask exec ert-runner"
