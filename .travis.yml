@@ -3,23 +3,24 @@ sudo: required
 services:
   - docker
 env:
-  - BUILD_DIR="/tmp/the-little-lisper"
+  - WORK_DIR="/the-little-lisper"
+  - EMACS_VERSION="26.1-dev"
 before_install:
-  - docker pull silex/emacs:26.1-dev
-  # start docker container and set working directory to build folder
-  - docker run -d -v "TRAVIS_BUILD_DIR":"$BUILD_DIR" -w "$BUILD_DIR" silex/emacs:26.1-dev
+  - docker pull silex/emacs:$EMACS_VERSION
 install:
-  # Install project dependencies
-  - docker ps -a
-  - pwd
-  - ls -al
-  - docker run silex/emacs:26.1-dev /bin/sh -c "ls -al"
-  - docker run silex/emacs:26.1-dev /bin/sh -c "pwd"
-  - docker run silex/emacs:26.1-dev /bin/sh -c "cd $BUILD_DIR"
-  - docker run silex/emacs:26.1-dev /bin/sh -c "ls -al $BUILD_DIR"
-  - docker run silex/emacs:26.1-dev /bin/sh -c "pwd; cask install"
-script:
   # verify Emacs version
-  - docker run silex/emacs:26.1-dev /bin/sh -c "emacs --version"
+  - docker run --volume "TRAVIS_BUILD_DIR":"$WORK_DIR" \
+               --workdir "$WORK_DIR" \
+               silex/emacs:$EMACS_VERSION \
+               /bin/bash -c "emacs --version"
+  # start docker container and set working directory to build folder
+  - docker run --volume "TRAVIS_BUILD_DIR":"$WORK_DIR" \
+               --workdir "$WORK_DIR" \
+               silex/emacs:$EMACS_VERSION \
+               /bin/bash -c "cask install"
+script:
   # Run tests
-  - docker run silex/emacs:26.1-dev /bin/sh -c "cask exec ert-runner"
+  - docker run --volume "TRAVIS_BUILD_DIR":"$WORK_DIR" \
+               --workdir "$WORK_DIR" \
+               silex/emacs:$EMACS_VERSION \
+               /bin/bash -c "cask exec ert-runner"
