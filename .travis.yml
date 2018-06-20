@@ -3,8 +3,9 @@ sudo: required
 services:
   - docker
 env:
-  - WORK_DIR="/the-little-lisper"
-  - EMACS_VERSION="26.1-dev"
+  global:
+    - WORK_DIR="/the-little-lisper"
+    - EMACS_VERSION="26.1-dev"
 before_install:
   - docker pull silex/emacs:$EMACS_VERSION
 install:
