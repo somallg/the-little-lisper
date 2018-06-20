@@ -9,18 +9,18 @@ before_install:
   - docker pull silex/emacs:$EMACS_VERSION
 install:
   # verify Emacs version
-  - docker run --volume "TRAVIS_BUILD_DIR":"$WORK_DIR" \
+  - docker run --volume "$TRAVIS_BUILD_DIR":"$WORK_DIR" \
                --workdir "$WORK_DIR" \
                silex/emacs:$EMACS_VERSION \
                /bin/bash -c "emacs --version"
   # start docker container and set working directory to build folder
-  - docker run --volume "TRAVIS_BUILD_DIR":"$WORK_DIR" \
+  - docker run --volume "$TRAVIS_BUILD_DIR":"$WORK_DIR" \
                --workdir "$WORK_DIR" \
                silex/emacs:$EMACS_VERSION \
                /bin/bash -c "cask install"
 script:
   # Run tests
-  - docker run --volume "TRAVIS_BUILD_DIR":"$WORK_DIR" \
+  - docker run --volume "$TRAVIS_BUILD_DIR":"$WORK_DIR" \
                --workdir "$WORK_DIR" \
                silex/emacs:$EMACS_VERSION \
                /bin/bash -c "cask exec ert-runner"
