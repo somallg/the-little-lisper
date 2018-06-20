@@ -6,18 +6,9 @@ before_install:
   - docker pull silex/emacs:26.1-dev
 install:
   # verify Emacs version
-  - docker run --volume "$TRAVIS_BUILD_DIR":/the-little-lisper \
-               --workdir /the-little-lisper \
-               silex/emacs:26.1-dev \
-               /bin/bash -c "emacs --version"
+  - docker run -v "$TRAVIS_BUILD_DIR":/the-little-lisper -w /the-little-lisper silex/emacs:26.1-dev /bin/bash -c "emacs --version"
   # start docker container and set working directory to build folder
-  - docker run --volume "$TRAVIS_BUILD_DIR":/the-little-lisper \
-               --workdir /the-little-lisper \
-               silex/emacs:26.1-dev \
-               /bin/bash -c "cask install"
+  - docker run -v "$TRAVIS_BUILD_DIR":/the-little-lisper -w /the-little-lisper silex/emacs:26.1-dev /bin/bash -c "cask install"
 script:
   # Run tests
-  - docker run --volume "$TRAVIS_BUILD_DIR":/the-little-lisper \
-               --workdir /the-little-lisper \
-               silex/emacs:26.1-dev \
-               /bin/bash -c "cask exec ert-runner"
+  - docker run -v "$TRAVIS_BUILD_DIR":/the-little-lisper -w /the-little-lisper silex/emacs:26.1-dev /bin/bash -c "cask exec ert-runner"
