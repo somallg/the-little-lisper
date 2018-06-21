@@ -9,17 +9,6 @@ env:
 before_install:
   - docker pull "${DOCKER_IMAGE}"
 install:
-  # Test docker run command with -v -w
-  - docker run -v "$TRAVIS_BUILD_DIR":"${BUILD_DIR}"
-               -w "${BUILD_DIR}" "${DOCKER_IMAGE}"
-               /bin/bash -c "pwd"
-  # Test docker run command with -w
-  - docker run -w "${BUILD_DIR}" "${DOCKER_IMAGE}"
-               /bin/bash -c "ls -al ${BUILD_DIR}"
-  # Test docker run command with -w and -v
-  - docker run -v "$TRAVIS_BUILD_DIR":"${BUILD_DIR}"
-               -w "${BUILD_DIR}" "${DOCKER_IMAGE}"
-               /bin/bash -c "ls -al ${BUILD_DIR}"
   # Start docker container, mount volume and set working directory to build dir
   - docker run -v "$TRAVIS_BUILD_DIR":"${BUILD_DIR}"
                -w "${BUILD_DIR}" "${DOCKER_IMAGE}"
