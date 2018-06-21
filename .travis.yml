@@ -10,15 +10,18 @@ before_install:
   - docker pull "${DOCKER_IMAGE}"
 install:
   # Test docker run command with -v -w
-  - docker run -v "$TRAVIS_BUILD_DIR":"${BUILD_DIR}"
+  - docker run -d -v "$TRAVIS_BUILD_DIR":"${BUILD_DIR}"
                -w "${BUILD_DIR}" "${DOCKER_IMAGE}"
                /bin/bash -c "pwd"
+  # Test docker run command with -v => fail
+  # - docker run -v "$TRAVIS_BUILD_DIR":"${BUILD_DIR}"
+  #              /bin/bash -c "pwd"
   # Test docker run command with -v
-  - docker run -v "$TRAVIS_BUILD_DIR":"${BUILD_DIR}"
-               /bin/bash -c "pwd"
-  # Test docker run command with -v
-  - docker run -v "$TRAVIS_BUILD_DIR":"${BUILD_DIR}"
-               /bin/bash -c "ls -al ${BUILD_DIR}"
+  # - docker run -v "$TRAVIS_BUILD_DIR":"${BUILD_DIR}"
+  #              /bin/bash -c "ls -al ${BUILD_DIR}"
+  # Test docker run command without -v after share volume
+  - docker run /bin/bash -c "pwd"
+  - docker run /bin/bash -c "ls -al ${BUILD_DIR}"
   # Test docker run command with -w
   - docker run -w "${BUILD_DIR}" "${DOCKER_IMAGE}"
                /bin/bash -c "pwd"
